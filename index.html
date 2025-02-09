@@ -7,15 +7,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Animated Circles -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
     <div class="quiz-container">
         <h1>Quiz App</h1>
+        <div class="quiz-header">
+            <p class="score">Score: <span id="score">0</span></p>
+        </div>
         <div id="question-container">
             <p id="question">Loading...</p>
             <div id="answer-buttons"></div>
         </div>
-        <button id="next-btn">Next</button>
+        <div class="control-buttons">
+            <button id="next-btn">Next</button>
+            <button id="restart-btn">Restart</button>
+        </div>
         <p id="progress">Question 1 of 10</p>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
