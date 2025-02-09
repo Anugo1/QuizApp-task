@@ -1,4 +1,4 @@
-
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,8 +6,8 @@
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #2d6a4f; 
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
   color: #e0e0e0;
   min-height: 100vh;
   display: flex;
@@ -15,28 +15,133 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  animation: backgroundAnimation 10s infinite alternate ease-in-out;
 }
 
-/* Quiz Container */
+@keyframes backgroundAnimation {
+  0% { background: linear-gradient(45deg, #1a1a2e, #16213e); }
+  50% { background: linear-gradient(45deg, #0f3460, #1a1a2e); }
+  100% { background: linear-gradient(45deg, #16213e, #0f3460); }
+}
+
+.dots {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #00f7ff;
+  border-radius: 50%;
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  animation: moveDots 5s infinite alternate ease-in-out;
+}
+@keyframes moveDots {
+  0% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+}
+
+.dots:nth-child(1) { top: 10%; left: 15%; animation-duration: 6s; }
+.dots:nth-child(2) { top: 20%; left: 70%; animation-duration: 5s; }
+.dots:nth-child(3) { top: 50%; left: 30%; animation-duration: 7s; }
+.dots:nth-child(4) { top: 80%; left: 60%; animation-duration: 6.5s; }
+.dots:nth-child(5) { top: 70%; left: 10%; animation-duration: 8s; }
+
 .quiz-container {
-  background: rgba(60, 90, 50, 0.95);
+  background: rgba(34, 34, 34, 0.95);
   border-radius: 20px;
   padding: 2rem;
   width: 90%;
   max-width: 600px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+
+/* === Question Transition Animation === */
+.fade-slide-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* === Quiz App Heading Design === */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 10px #6a00f4, 0 0 20px #ff00ff;
+  animation: titleGlow 2s infinite alternate ease-in-out;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+@keyframes titleGlow {
+  0% { text-shadow: 0 0 10px #6a00f4, 0 0 20px #ff00ff; }
+  50% { text-shadow: 0 0 15px #ff00ff, 0 0 30px #6a00f4; }
+  100% { text-shadow: 0 0 10px #6a00f4, 0 0 20px #ff00ff; }
+}
+
+/* === Score Tracker Design === */
+.score {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00f7ff;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+}
+
+.score:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
+
+/* Score Update Animation */
+@keyframes scoreFlicker {
+  0% { color: #00f7ff; text-shadow: 0 0 5px #00f7ff; }
+  50% { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
+  100% { color: #00f7ff; text-shadow: 0 0 5px #00f7ff; }
+}
+
+#score.updated {
+  animation: scoreFlicker 0.6s linear 2;
+}
+
+/* Quiz Container */
+.quiz-container {
+  background: rgba(34, 34, 34, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  backdrop-filter: blur(10px);
 }
 
 /* Question Section */
 #question {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   margin-bottom: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #00f7ff;
 }
 
 /* Answer Buttons */
@@ -48,58 +153,117 @@ body {
 }
 
 .btn {
-  background: #588157; 
+  background: linear-gradient(90deg, #6a00f4, #ff00ff);
   border: none;
   padding: 1rem;
-  border-radius: 10px;
-  color: #e0e0e0;
-  font-size: 1rem;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.4);
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .btn:hover {
-  background: #8fbc8f;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+}
+
+/* Correct & Wrong Answer Effects */
+.correct {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+.wrong {
+  background-color: #dc3545 !important;
+  color: white;
 }
 
 .btn.correct {
-  animation: blinkGreen 0.8s;
+  animation: correctGlow 0.8s;
 }
 
 .btn.wrong {
-  animation: blinkRed 0.8s;
+  animation: wrongGlow 0.8s;
 }
 
-@keyframes blinkGreen {
-  0%, 100% { background: #588157; }
-  50% { background: #28d745; }
+@keyframes correctGlow {
+  0%, 100% { background: #00ff88; }
+  50% { background: #00ff44; box-shadow: 0 0 20px #00ff44; }
 }
 
-@keyframes blinkRed {
-  0%, 100% { background: #588157; }
-  50% { background: #d73545; }
+@keyframes wrongGlow {
+  0%, 100% { background: #ff0033; }
+  50% { background: #ff2200; box-shadow: 0 0 20px #ff2200; }
 }
 
 /* Control Buttons */
 #next-btn, #restart-btn {
-  background: #40916c;
+  background: linear-gradient(90deg, #00c3ff, #0082ff);
   border: none;
   padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  color: #e0e0e0;
+  border-radius: 12px;
+  color: #ffffff;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   margin-top: 1rem;
   display: none;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
 
 #next-btn:hover, #restart-btn:hover {
-  background: #52b788;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
 /* Progress Indicator */
 #progress {
-  color: #b7e4c7;
-  font-size: 1.1rem;
+  color: #00f7ff;
+  font-size: 1.2rem;
   margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* Background Floating Circles */
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: glow 10s infinite alternate ease-in-out;
+}
+
+.circle1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(138, 43, 226, 0.4);
+  top: -50px;
+  left: -50px;
+}
+
+.circle2 {
+  width: 250px;
+  height: 250px;
+  background: rgba(0, 255, 255, 0.4);
+  bottom: -50px;
+  right: -50px;
+}
+
+.circle3 {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 0, 255, 0.4);
+  bottom: 100px;
+  left: -150px;
+}
+
+@keyframes glow {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(30px) scale(1.1); }
+  100% { transform: translateY(0px) scale(1); }
 }
