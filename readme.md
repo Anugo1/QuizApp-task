@@ -36,5 +36,5 @@ A simple and interactive quiz application built using **HTML, CSS, and JavaScrip
 - **CSS**: Styling and animations  
 - **JavaScript**: Quiz logic and interactivity  
 
-## Interact with deployed site
-- [quiz text](https://quiz-app-task-seven.vercel.app/)
+## Interact with deployed site by clicking this link
+- [Quiz App link](https://quiz-app-task-seven.vercel.app/)
